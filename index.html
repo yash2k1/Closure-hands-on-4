@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Closure-hands on 4</title>
+</head>
+
+<body>
+    <div class="container1">
+
+        <div class="questions">
+            <!-- Question 1 -->
+            <div class="heading">Closure-hands on 4</div>
+            <div class="container">
+                <div class="question"> Q1.
+                    <pre>
+ function counter(){
+    var counter = 0;
+
+    function IncreaseCounter() {
+        return counter += 1;
+    };
+
+    return IncreaseCounter;
+}
+
+var counter = counter();
+alert(counter());
+alert(counter());
+alert(counter());
+alert(counter());
+          </pre>
+                </div>
+                <div id="ans1" class="ans">
+                    4 time alert is shown with counter value 1,2,3,4 respectivly <br>
+                    EXPLANATION - when counter() function is being called then it return the IncreaseCounter() function
+                    and a counter variable (local variable) because of closure
+                    and when the couter() (global first class function) function is being called inside the alert it run
+                    IncreaseCounter() function that has use a counter variable which is not in the
+                    IncreaseCounter's local memory so it starts finding in the lexical scope and due to closure it uses
+                    the counter variable (local variable of counter() function) and increase its value and also update
+                    the counter variable.
+                    then again alert(counter()); is being call which increase the value of counter (local variable of
+                    closure) whos value is increased by 1 because of the previous alert(counter()); so in increase the
+                    value of counter variable.
+
+                </div>
+            </div>
+            <!-- Question 2 -->
+
+            <div class="container ">
+                <div class="question">Q2.
+
+
+                    <pre>
+"let count = 0;
+(function () {
+    if (count === 0) {
+        let count = 1;
+        console.log(count); // What is logged?
+    }
+    console.log(count); // What is logged?
+})();"
+                    </pre>
+                </div>
+                <div id="ans2" class="ans">
+                    1 <br>
+                    0 <br>
+                    EXPLANATION - There is count in the if condition, so to find the the value of count is search in the
+                    lexical scope where count =0 (a global variable) so, condition is satisfied
+                    now 1 st console .log(count) will print with the value of 1 because of the local variable in the
+                    local memory (let count=1) then another console.log(count) will search for count and
+                    it prints count 0.
+                </div>
+            </div>
+            <!-- Question 3 -->
+
+            <div class="container">
+                <div class="question"> Q3.
+                    <pre>
+for (var i = 0; i < 3; i++) {
+    setTimeout(function log() {
+      console.log(i); // What is logged?
+    }, 1000);
+  }
+        </pre>
+                </div>
+                <div class="ans">
+                   <div id="ans3"></div>
+                   <button onclick="ans3Fun()"> Run</button> <br>
+
+                    In case of var you are always referring to the same variable address, because var is function scoped.
+                    i will be hoisted, to look like this :
+                    <pre>
+                        var i;
+                        for ( i = 0; i < 3; i++) {
+                            setTimeout(function log() {
+                              console.log(i); // What is logged?
+                            }, 1000);
+                          }
+                    </pre>
+                    After the loop get's over , it will run setTimeOut for 3 times which will print value of i which is now 3
+
+                </div>
+
+            </div>
+            <!-- Question 4 -->
+
+            <div class="container ">
+                <div class="question">Q4.
+                    Write a code to calculate area of a rectangle using inner function. In this case outer function
+                    should accept parameter length and inner function should accept parameter breadth.
+                </div>
+                <div class="ans">
+                    <pre>
+ function findArea(l) {
+     return function area(b) {
+       console.log(l * b);
+     };
+   }
+   const func1 = findArea(<span id="l"></span>);
+   func1(<span id="b"></span>);
+       </pre>      
+    <label for="inputAns4Length" style="color:black">Length: </label>   <input type="text" placeholder="enter the length" id="inputAns4Length" > <br>
+    <label for="inputAns4Breath" style="color:black">Breadth: </label>  <input type="text" placeholder="enter the breadth" id="inputAns4Breadth">
+    <button id="ans4Btn" onclick="areaOfRectangle()">area</button>
+        <div id="ans4"></div>
+
+                    EXPLANATION - here we are using the concept of closure . when we give length value to the findArea()
+                    as a paramenter
+                    and call it it return area(b) function with the length value because of closure and when we call
+                    func1 then
+                    area () is being called and it take the value of breadth from local memory and length value from
+                    lexical scopeand print
+                    the Length*breadth.
+                </div>
+            </div>
+            <!-- Question 5 -->
+
+            <div class="container ">
+                <div class="question">
+                    Q5.
+                    Take a variable in outer function and create an inner function to increase the counter every time it
+                    is called.
+                </div>
+                <div class="ans">
+ <pre>
+ function counter(){
+     var counter = 0;
+ 
+     function IncreaseCounter() {
+         return counter += 1;
+     };
+     return IncreaseCounter;
+ }
+  const func2 = counter(0);
+  func2();
+  func2();
+  func2();
+  func2();
+  </pre>           Counter: <span id="counterAns5"></span> <br>
+                 <button id="func2Btn" onclick="increasecount()">func2 is being called</button> <br>
+
+                    
+                    EXPLANATION - when counter() function is being called then it return the IncreaseCounter() function
+                    and a counter variable (local variable) because of closure
+                    and when the func2() (global first class function) function is being called it run IncreaseCounter()
+                    function that has use a counter variable which is not in the
+                    IncreaseCounter's local memory so it starts finding in the lexical scope and due to closure it uses
+                    the counter variable (local variable of counter() function) and increase its value and also update
+                    the counter variable.
+                    then again func2(); is being call which increase the value of counter (local variable of closure)
+                    who's value is increased by 1 because of the previous func2() so in increase the value of counter
+                    variable.
+
+                </div>
+
+            </div>
+            <!-- Question 6 -->
+            <div class="container ">
+                <div class="question">
+
+                    <pre>
+Q6. Print Output
+ var a = 12;
+ (function () {
+ alert(a);
+ })();
+                 </pre>
+
+                </div>
+                <div class="ans">
+                    12 is being alert <br>
+                    EXPLANATION - we have Self-Invoking Functions which alert with the value of a and the value of is
+                    comming from its lexical enviroment
+                </div>
+            </div>
+            <!-- Question 7 -->
+            <div class="container ">
+                <div class="question">
+                    <pre>
+ Q7.  var a = 10;
+ var x = (function () {
+ var a = 12;
+ return function () {
+ alert(a);
+ };
+ })();
+ x();
+                 </pre>
+                </div>
+                <div class="ans">
+                    12 is being alert <br>
+                    EXPLANATION - There is a Self-Invoking Functions which return an anonimous function and a variable
+                    with value 12 to x and when x is call
+                    it alert with value a which comming from the lexical environment
+                </div>
+            </div>
+            <!-- Question 8 -->
+            <div class="container ">
+                <div class="question">
+                    <pre>
+Q8. var globalVar = "xyz";
+
+    (function outerFunc(outerArg) {
+    var outerVar = 'a';
+
+    (function innerFunc(innerArg) {
+    var innerVar = 'b';
+
+    console.log(
+    ""outerArg = "" + outerArg + ""\n"" +
+    ""innerArg = "" + innerArg + ""\n"" +
+    ""outerVar = "" + outerVar + ""\n"" +
+    ""innerVar = "" + innerVar + ""\n"" +
+    ""globalVar = "" + globalVar);
+
+    })(456);
+    })(123);
+</pre>
+                </div>
+                <div class="ans">
+                    outerArg = 123 <br>
+                    innerArg = 456<br>
+                    outerVar = a<br>
+                    innerVar = b<br>
+                    globalVar = xyz<br>
+                    EXPLANATION - There 2 Self-Invoking Functions (outerFunc and innerFunc)when outerFunc is call with
+                    the Argument value of 123 then innerFunc() function is being called with 456 during the
+                    console.log() outerArg value is 123 thst is pass in the outerFunc as a paramenter and innerArg value
+                    is 456 thst is pass in the innnerFunc as a paramenter and outerVar is value is 'a'
+                    that value is found in the lexical scope of the innerFunc and innerVar value is 'b' as it is in the
+                    local memory and globalVar is "xyz" that is in the global memory.
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
